@@ -4,6 +4,8 @@
 from __future__ import absolute_import, division, unicode_literals, print_function
 
 import re
+
+from os import path
 from util.constants import constants
 
 
@@ -63,18 +65,18 @@ def create_full_path(path_stack, name, depth):
 
     :Example:
 
-    >>> # Stack representing dirs a/b a/c/d
+    >>> from os import path
     >>> stack = [
-    ...     ('a', 0),
-    ...     ('a/b', 2),
-    ...     ('a/c', 2),
-    ...     ('a/c/d', 4),
+    ...     (path.join('a'), 0),
+    ...     (path.join('a', 'b'), 2),
+    ...     (path.join('a', 'c'), 2),
+    ...     (path.join('a', 'c', 'd'), 4),
     ... ]
-    >>> create_full_path(stack, 'e', 6) == 'a/c/d/e'
+    >>> create_full_path(stack, 'e', 6) == path.join('a', 'c', 'd', 'e')
     True
-    >>> create_full_path(stack, 'f', 4) == 'a/c/f'
+    >>> create_full_path(stack, 'f', 4) == path.join('a', 'c', 'f')
     True
-    >>> create_full_path(stack, 'g', 2) == 'a/g'
+    >>> create_full_path(stack, 'g', 2) == path.join('a', 'g')
     True
     >>> create_full_path(stack, 'h', 0) is None
     True
