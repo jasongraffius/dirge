@@ -78,7 +78,7 @@ def create_full_path(path_stack, name, depth):
     True
     >>> create_full_path(stack, 'g', 2) == path.join('a', 'g')
     True
-    >>> create_full_path(stack, 'h', 0) is None
+    >>> create_full_path(stack, 'h', 0) == 'h'
     True
 
     """
@@ -91,8 +91,8 @@ def create_full_path(path_stack, name, depth):
         # Found the next parent directory
         return path.join(d_name, name)
 
-    # No parent found
-    return None
+    # No parent found, return new root
+    return name
 
 
 
