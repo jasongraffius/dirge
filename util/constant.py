@@ -16,17 +16,30 @@ def constant(get_value):
 
     :Example:
 
-    >>> class Const(object):
+    >>> class Constants(object):
     ...     @constant
     ...     def VAL():
     ...         return 42
     ...
-    >>> Const.VAL
+    >>> const = Constants()
+    >>> const.VAL
     42
-    >>> Const.VAL = 0
+    >>> const.VAL = 0
     Traceback (most recent call last):
         ...
     TypeError: value is read-only
 
     """
-    pass
+
+    # Define the property getter
+    def getter(self):
+        """Property getter for a constant. Retrieves the constant value."""
+        return get_value()
+
+    # Prevent setting values, raise TypeError instead
+    def setter(self, value):
+        """Property setter for a constant. Does not allow values to be set."""
+        raise TypeError('value is read-only')
+
+    # Create a property from the above functions
+    return property(getter, setter)
