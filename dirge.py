@@ -65,16 +65,16 @@ def parse_line(line):
 def determine_paths(read, parent=None):
     """Determines the list of paths to create from a directory specification
 
-    :param read: text to parse for generation rules
+    :param read: Text to parse for generation rules
     :type read: str, file
-    :return: list of paths that should be generated
+    :return: A list of paths that should be generated
     :rtype: list
 
     :Example with string:
 
     >>> text = '''
     ...
-    ... path
+    ... -path
     ...   |
     ...   +-along
     ...   |  |
@@ -104,7 +104,7 @@ def determine_paths(read, parent=None):
     :Example with absolute paths:
 
     >>> text = '''
-    ... dir_one
+    ... -dir_one
     ...   +-dir_two
     ...   `-dir_three
     ... '''
