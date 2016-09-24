@@ -5,7 +5,10 @@ from __future__ import absolute_import, division, unicode_literals, print_functi
 
 import re
 
+from io import StringIO
 from os import path
+
+from util.compat import is_str
 from util.constants import constants
 
 
@@ -95,7 +98,6 @@ def create_full_path(path_stack, name, depth):
     return name
 
 
-
 def determine_paths(read, parent=None):
     """Determines the list of paths to create from a directory specification
 
@@ -152,7 +154,49 @@ def determine_paths(read, parent=None):
     ... ]
     True
     """
-    pass
+
+    # Read strings from a file-like interface
+    if is_str(read):
+        read = StringIO(read)
+
+    # If there is no parent, the prefix is ''
+    if parent is None:
+        parent = ''
+
+    # Keep track of paths generated
+    paths = list()
+    # Keep track of directory levels
+    parent_stack = list()
+
+    # Iterate over each line in the file/string
+    for line in read:
+
+        # Discard the trailing newline
+        if len(line) > 0 and line[-1] == '\n':
+            line = line[:-1]
+
+        # Parse the line for the directory and its offset
+        name, depth = parse_line(line)
+
+        # If the line does not contain a directory, continue to the next line
+        if name is None:
+            continue
+
+        # Find the path
+        full_path = create_full_path(parent_stack, name, depth)
+
+        # If there is no existing parent, create a new root-level directory
+        if full_path is None:
+            full_path = path.join(parent, name)
+
+        # Keep the new path
+        paths.append(full_path)
+        # Update the stack
+        parent_stack.append((full_path, depth))
+
+    paths.sort()  # This is intended to keep them in an unambiguous order
+
+    return paths
 
 
 def main():
