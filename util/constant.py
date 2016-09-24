@@ -31,7 +31,10 @@ def constants(cls):
 
     """
 
-    # Prevent setting values, raise TypeError instead
+    # Prevent setting values, raise TypeError instead.
+    #
+    # None of the arguments are used.
+    # noinspection PyUnusedLocal
     def setter(obj, name, value):
         """Implementation of __setattr__ that does not allow setting attributes."""
         raise TypeError('value is read-only')
