@@ -130,12 +130,12 @@ def determine_paths(read, parent=None):
     >>> paths = determine_paths(text)
     >>> paths == [
     ...     'path',
-    ...     'path/along',
-    ...     'path/along/down',
-    ...     'path/along/the',
-    ...     'path/along/way',
-    ...     'path/for',
-    ...     'path/for/dirs',
+    ...     path.join('path', 'along'),
+    ...     path.join('path', 'along', 'down'),
+    ...     path.join('path', 'along', 'the'),
+    ...     path.join('path', 'along', 'way'),
+    ...     path.join('path', 'for'),
+    ...     path.join('path', 'for', 'dirs'),
     ... ]
     True
 
@@ -146,11 +146,12 @@ def determine_paths(read, parent=None):
     ...   +-dir_two
     ...   `-dir_three
     ... '''
-    >>> paths = determine_paths(text, "/parent/directory/path")
+    >>> parent = path.join('parent', 'directory', 'path')
+    >>> paths = determine_paths(text, parent)
     >>> paths == [
-    ...     '/parent/directory/path/dir_one',
-    ...     '/parent/directory/path/dir_one/dir_two',
-    ...     '/parent/directory/path/dir_one/dir_three',
+    ...     path.join(parent, 'dir_one'),
+    ...     path.join(parent, 'dir_one', 'dir_three'),
+    ...     path.join(parent, 'dir_one', 'dir_two'),
     ... ]
     True
     """
