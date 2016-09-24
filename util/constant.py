@@ -30,4 +30,14 @@ def constants(cls):
     TypeError: value is read-only
 
     """
-    pass
+
+    # Prevent setting values, raise TypeError instead
+    def setter(obj, name, value):
+        """Implementation of __setattr__ that does not allow setting attributes."""
+        raise TypeError('value is read-only')
+
+    # Attach the setter to cls
+    cls.__setattr__ = setter
+
+    # Create an instance of the cls, to bind the __setattr__
+    return cls()
