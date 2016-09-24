@@ -48,7 +48,9 @@ def determine_paths(read, parent=None):
     """Determines the list of paths to create from a directory specification
 
     :param read: Text to parse for generation rules
+    :param parent: Parent directory/prefix to append to each generated directory
     :type read: str, file
+    :type parent: str
     :return: A list of paths that should be generated
     :rtype: list
 
