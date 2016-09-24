@@ -44,6 +44,45 @@ def parse_line(line):
         return (None, 0)  # Return None
 
 
+def create_full_path(path_stack, name, depth):
+    """Creates a full path from the name, level and current stack.
+
+    Walks back up path_stack until a lower level path is found. A fully
+    qualified path is returned. The stack is not modified, but the resulting
+    value should be appended to the stack before the next invocation of this
+    function.
+
+    :param path_stack: A stack of directory paths and their 'level'
+    :param name: The name of the directory to insert into the tree
+    :param depth: The 'depth' or 'level' of the new directory
+    :type path_stack: list
+    :type name: str
+    :type depth: int
+    :return: Full path of new directory, or None if there are no parents
+    :rtype: str, None
+
+    :Example:
+
+    >>> # Stack representing dirs a/b a/c/d
+    >>> stack = [
+    ...     ('a', 0),
+    ...     ('a/b', 2),
+    ...     ('a/c', 2),
+    ...     ('a/c/d', 4),
+    ... ]
+    >>> create_full_path(stack, 'e', 6) == 'a/c/d/e'
+    True
+    >>> create_full_path(stack, 'f', 4) == 'a/c/f'
+    True
+    >>> create_full_path(stack, 'g', 2) == 'a/g'
+    True
+    >>> create_full_path(stack, 'h', 0) is None
+    True
+
+    """
+    pass
+
+
 def determine_paths(read, parent=None):
     """Determines the list of paths to create from a directory specification
 
