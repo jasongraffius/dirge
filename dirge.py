@@ -22,14 +22,15 @@ def parse_line(line):
 
     :Example:
 
-    >>> parse_line(' | | +-directory')
-    ('directory', 6)
-    >>> parse_line('-root')
-    ('root', 0)
-    >>> parse_line('        deep-folder')
-    ('deep-folder', 8)
-    >>> parse_line('-----> folder')
-    ('folder', 7)
+    >>> parse_line(' | | +-directory') == ('directory', 6)
+    True
+    >>> parse_line('-root') == ('root', 0)
+    True
+    >>> parse_line('        deep-folder') == ('deep-folder', 8)
+    True
+    >>> parse_line('-----> folder') == ('folder', 7)
+    True
+
     """
 
     # Parse the line with a regex
