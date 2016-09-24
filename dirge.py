@@ -82,7 +82,18 @@ def create_full_path(path_stack, name, depth):
     True
 
     """
-    pass
+
+    # Walk up through path stack
+    for d_name, d_level in reversed(path_stack):
+        if depth <= d_level:
+            continue  # Not a parent directory, either sibling or cousin
+
+        # Found the next parent directory
+        return path.join(d_name, name)
+
+    # No parent found
+    return None
+
 
 
 def determine_paths(read, parent=None):
