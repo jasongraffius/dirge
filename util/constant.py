@@ -3,23 +3,24 @@
 from __future__ import absolute_import, division, unicode_literals, print_function
 
 
-def constant(get_value):
-    """Decorator to turn a function into a read-only property.
+def constants(cls):
+    """Decorator to convert all members of a class to read-only.
 
-    This decorator/function dos NOT magically make the object immutable, so
-    the value is not truly constant, but it does enforce a read-only binding.
+    This decorator/function dos NOT magically make the objects immutable, so
+    the values are not truly constant, but it does enforce a read-only
+    binding, which is good enough for most uses. Note that no values can be
+    added to the class after its definition either.
 
-    :param get_value: A callable that returns a value to make constant.
-    :type get_value: callable
-    :return: A read-only property producing the value returned by get_value()
-    :rtype: property
+    :param cls: A class to make constant
+    :type cls: type
+    :return: A read-only object of type cls
+    :rtype: cls
 
     :Example:
 
-    >>> class Const(object):
-    ...     @constant
-    ...     def VAL():
-    ...         return 42
+    >>> @constants
+    ... class Const(object):
+    ...     VAL = 42
     ...
     >>> Const.VAL
     42
