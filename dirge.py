@@ -46,7 +46,7 @@ def parse_line(line):
     if m:  # If the regex matched
         return m.group(3), len(m.group(1))  # Return the values
     else:  # Otherwise, no match
-        return (None, 0)  # Return None
+        return None, 0  # Return None
 
 
 def create_full_path(path_stack, name, depth):
@@ -94,8 +94,8 @@ def create_full_path(path_stack, name, depth):
         # Found the next parent directory
         return path.join(d_name, name)
 
-    # No parent found, return new root
-    return name
+    # No parent found
+    return None
 
 
 def determine_paths(read, parent=None):
