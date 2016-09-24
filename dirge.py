@@ -6,9 +6,11 @@ from __future__ import absolute_import, division, unicode_literals, print_functi
 import re
 from util.constants import constants
 
+
 @constants
 class Const(object):
     DIR_LINE_REGEX = re.compile(r"(\W*?)([-]+)?(\w[^|/\\?:<>]*)")
+
 
 def parse_line(line):
     """Parses a single line of a directory specification.
@@ -37,7 +39,7 @@ def parse_line(line):
     m = Const.DIR_LINE_REGEX.match(line)
 
     if m:  # If the regex matched
-        return (m.group(3), len(m.group(1)))  # Return the values
+        return m.group(3), len(m.group(1))  # Return the values
     else:  # Otherwise, no match
         return (None, 0)  # Return None
 
