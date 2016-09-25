@@ -2,7 +2,7 @@
 """Dirge - Directory generator
 
 Usage:
-    dirge [option] <template>
+    dirge [options] <template>
 
 Options:
 
