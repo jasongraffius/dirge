@@ -5,10 +5,12 @@ Usage:
     dirge [options] <template>
 
 Options:
-
     -s --simulate
         Simulate output. Don't create any directories, but print the paths to
         stdout.
+
+    -v --verbose
+        Verbose. Print each directory's path to stdout as it is generated.
 
 """
 
@@ -213,13 +215,15 @@ def determine_paths(read, parent=None):
     return paths
 
 
-def dirge(template, simulate=False):
+def dirge(template, simulate=False, verbose=False):
     """Generates directories based on a template file.
 
     :param template: Filename of template that provides generation rules
     :param simulate: If True, no directories will be created, paths printed
+    :param verbose: If True, print paths as directories are created
     :type template: str
     :type simulate: bool
+    :type verbose: bool
 
     """
 
@@ -233,6 +237,8 @@ def dirge(template, simulate=False):
         for path in paths:
             try:
                 mkdir(path)
+                if verbose:
+                    print(path)
             except OSError as e:
                 if e.errno == errno.EEXIST:
                     eprint('"' + path + '"', 'exists, skipping...')
@@ -253,6 +259,7 @@ def main():
     expected_options = {
         '<template>': 'template',
         '--simulate': 'simulate',
+        '--verbose': 'verbose',
     }
 
     # Extract function parameters from command line
