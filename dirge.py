@@ -216,7 +216,9 @@ def dirge(template, simulate=False):
     """Generates directories based on a template file.
 
     :param template: Filename of template that provides generation rules
+    :param simulate: If True, no directories will be created, paths printed
     :type template: str
+    :type simulate: bool
 
     """
 
