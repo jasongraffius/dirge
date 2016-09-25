@@ -231,9 +231,16 @@ def main():
     args = docopt(__doc__)
     dirge_args = dict()
 
-    # Extract template parameter
-    if '<template>' in args:
-        dirge_args['template'] = args['<template>']
+    # Map command line args to function parameters
+    expected_options = {
+        '<template>': 'template'
+    }
+
+    # Extract function parameters from command line
+    for option in expected_options:
+        if option in args:
+            # Convert each argument
+            dirge_args[expected_options[option]] = args[option]
 
     # Start dirge
     dirge(**dirge_args)
