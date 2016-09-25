@@ -17,6 +17,7 @@ Options:
 from __future__ import absolute_import, division, unicode_literals, print_function
 
 import errno
+import jinja2
 import re
 
 from docopt import docopt
@@ -227,8 +228,10 @@ def dirge(template, simulate=False, verbose=False):
 
     """
 
-    f = open(template)
-    paths = determine_paths(f)
+    # Extremely crude templating with jinja2
+    content = open(template).read()
+    j_template = jinja2.Template(content)
+    paths = determine_paths(j_template.render())
 
     if simulate:
         for path in paths:
