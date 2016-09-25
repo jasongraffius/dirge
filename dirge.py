@@ -14,13 +14,14 @@ Options:
 
 from __future__ import absolute_import, division, unicode_literals, print_function
 
+import errno
 import re
 
 from docopt import docopt
 from io import StringIO
-from os import path
+from os import path, mkdir
 
-from util.compat import is_str
+from util.compat import is_str, eprint
 from util.constants import constants
 
 
@@ -229,9 +230,12 @@ def dirge(template, simulate=False):
         for path in paths:
             print(path)
     else:
-
-        # TODO Generation
-        pass
+        for path in paths:
+            try:
+                mkdir(path)
+            except OSError as e:
+                if e.errno == errno.EEXIST:
+                    eprint('"' + path + '"', 'exists, skipping...')
 
 
 def main():
