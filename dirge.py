@@ -1,10 +1,16 @@
 #!/usr/bin/env python
-"""Dirge - Directory generator"""
+"""Dirge - Directory generator
+
+Usage:
+    dirge <template>
+
+"""
 
 from __future__ import absolute_import, division, unicode_literals, print_function
 
 import re
 
+from docopt import docopt
 from io import StringIO
 from os import path
 
@@ -200,8 +206,37 @@ def determine_paths(read, parent=None):
     return paths
 
 
+def dirge(template):
+    """Generates directories based on a template file.
+
+    :param template: Filename of template that provides generation rules
+    :type template: str
+
+    """
+
+    f = open(template)
+    paths = determine_paths(f)
+
+    # TODO Generation
+
+
 def main():
-    pass
+    """Main entry point to the program.
+
+    Grabs the command line arguments and calls dirge() to handle the parsing
+    and generation.
+    """
+
+    # Get user arguments
+    args = docopt(__doc__)
+    dirge_args = dict()
+
+    # Extract template parameter
+    if '<template>' in args:
+        dirge_args['template'] = args['<template>']
+
+    # Start dirge
+    dirge(**dirge_args)
 
 
 if __name__ == '__main__':
