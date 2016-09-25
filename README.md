@@ -3,7 +3,6 @@ Dirge - Directory generator
 
 Dirge can generate a directory structure from a template file. For example:
 
-### template.dir
 ```
 root
   |
@@ -11,7 +10,7 @@ root
   |
   +-s1_2
   |  |
-  |  `-s2_2
+  |  `-s2_1
   |
   `-s1_3
 
