@@ -2,7 +2,13 @@
 """Dirge - Directory generator
 
 Usage:
-    dirge <template>
+    dirge [option] <template>
+
+Options:
+
+    -s --simulate
+        Simulate output. Don't create any directories, but print the paths to
+        stdout.
 
 """
 
@@ -206,7 +212,7 @@ def determine_paths(read, parent=None):
     return paths
 
 
-def dirge(template):
+def dirge(template, simulate=False):
     """Generates directories based on a template file.
 
     :param template: Filename of template that provides generation rules
@@ -217,7 +223,13 @@ def dirge(template):
     f = open(template)
     paths = determine_paths(f)
 
-    # TODO Generation
+    if simulate:
+        for path in paths:
+            print(path)
+    else:
+
+        # TODO Generation
+        pass
 
 
 def main():
@@ -233,7 +245,8 @@ def main():
 
     # Map command line args to function parameters
     expected_options = {
-        '<template>': 'template'
+        '<template>': 'template',
+        '--simulate': 'simulate',
     }
 
     # Extract function parameters from command line
