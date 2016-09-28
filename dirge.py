@@ -227,8 +227,8 @@ def dirge(template, simulate=False, verbose=False):
 
     """
 
-    f = open(template)
-    paths = determine_paths(f)
+    with open(template) as f:
+        paths = determine_paths(f)
 
     if simulate:
         for path in paths:
