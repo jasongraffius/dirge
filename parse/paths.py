@@ -96,8 +96,8 @@ def create_full_path(path_stack, name, depth):
     return None
 
 
-def determine_paths(read, parent=None):
-    """Determines the list of paths to create from a directory specification
+def parse_paths(read, parent=None):
+    """Parses a directory specification to determine a list of paths
 
     :param read: Text to parse for generation rules
     :param parent: Parent directory/prefix to append to each generated directory
@@ -125,7 +125,7 @@ def determine_paths(read, parent=None):
     ...      `-dirs
     ...
     ... '''
-    >>> paths = determine_paths(text)
+    >>> paths = parse_paths(text)
     >>> paths == [
     ...     'path',
     ...     path.join('path', 'along'),
@@ -145,7 +145,7 @@ def determine_paths(read, parent=None):
     ...   `-dir_three
     ... '''
     >>> parent = path.join('parent', 'directory', 'path')
-    >>> paths = determine_paths(text, parent)
+    >>> paths = parse_paths(text, parent)
     >>> paths == [
     ...     path.join(parent, 'dir_one'),
     ...     path.join(parent, 'dir_one', 'dir_three'),

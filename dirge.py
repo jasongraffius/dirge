@@ -21,7 +21,7 @@ import errno
 from docopt import docopt
 from os import mkdir
 
-from parse.paths import determine_paths
+from parse.paths import parse_paths
 from util.compat import eprint
 
 
@@ -38,7 +38,7 @@ def dirge(template, simulate=False, verbose=False):
     """
 
     with open(template) as f:
-        paths = determine_paths(f)
+        paths = parse_paths(f)
 
     if simulate:
         for path in paths:
